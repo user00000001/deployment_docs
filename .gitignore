@@ -1,0 +1,9 @@
+docs/.vuepress/dist
+node_modules
+
+.vscode
+.env
+.idea
+
+package-lock.json
+yarn.lock
