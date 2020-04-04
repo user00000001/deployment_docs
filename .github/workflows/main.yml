@@ -32,3 +32,5 @@ jobs:
         GIT_ACCESS_TOKEN: ${{ secrets.access_token }}
         GIT_EMAIL: ${{ secrets.email }}
         GIT_NAME: ${{ secrets.name }}
+        GIT_REPO: ${{ secrets.source_repo }}
+        GIT_LAB: ${{ secrets.gitlabel }}

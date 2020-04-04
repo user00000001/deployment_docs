@@ -5,8 +5,7 @@ set -e
 
 git config --global user.email ${GIT_EMAIL}
 git config --global user.name ${GIT_NAME}
-git clone https://${GIT_ACCESS_TOKEN}@github.com/${GIT_NAME}/docs.git
-cd docs
+git clone https://${GIT_ACCESS_TOKEN}@${GIT_LAB}/${GIT_NAME}/${GIT_REPO}.git
 
 # 并发运行的最佳实践
 
@@ -35,17 +34,18 @@ function check() {
 
 # main
 for doc_dirname in `cat .docs`; do
-    if [ -f "${doc_dirname}/deploy.sh" ]; then
-        echo "goto $doc_dirname" && cd $doc_dirname
+    if [ -f "${GIT_REPO}/${doc_dirname}/deploy.sh" ]; then
+        echo "goto ${GIT_REPO}/$doc_dirname" && cd ${GIT_REPO}/$doc_dirname
         chmod +x deploy.sh && ./deploy.sh &
         push $!
-        cd ..
+        cd -
     fi
 	while [[ $run -gt $Qp ]];do
 		check
 		sleep 0.1
 	done
 done
+wait
 
 echo -e "time-consuming: $SECONDS   seconds"    #显示脚本执行耗时
 
