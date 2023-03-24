@@ -36,7 +36,7 @@ function check() {
 for doc_dirname in `cat .docs`; do
     if [ -f "${GIT_REPO}/${doc_dirname}/package.json" ]; then
         echo "goto ${GIT_REPO}/$doc_dirname" && cd ${GIT_REPO}/$doc_dirname
-        yarn --silent
+        yarn 
         cd -
     fi
 done
