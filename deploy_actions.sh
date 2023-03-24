@@ -32,29 +32,29 @@ function check() {
 	run=${#Qarr[@]}
 }
 
-# prepare shared node_modules
+# main sequence
 for doc_dirname in `cat .docs`; do
-    if [ -f "${GIT_REPO}/${doc_dirname}/package.json" ]; then
+    if [ -f "${GIT_REPO}/${doc_dirname}/deploy.sh" ]; then
         echo "goto ${GIT_REPO}/$doc_dirname" && cd ${GIT_REPO}/$doc_dirname
-        yarn 
+        chmod +x deploy.sh && ./deploy.sh
         cd -
     fi
 done
 
-# main
-for doc_dirname in `cat .docs`; do
-    if [ -f "${GIT_REPO}/${doc_dirname}/deploy.sh" ]; then
-        echo "goto ${GIT_REPO}/$doc_dirname" && cd ${GIT_REPO}/$doc_dirname
-        chmod +x deploy.sh && ./deploy.sh &
-        push $!
-        cd -
-    fi
-	while [[ $run -gt $Qp ]];do
-		check
-		sleep 0.1
-	done
-done
-wait
+# # main concurrent
+# for doc_dirname in `cat .docs`; do
+#     if [ -f "${GIT_REPO}/${doc_dirname}/deploy.sh" ]; then
+#         echo "goto ${GIT_REPO}/$doc_dirname" && cd ${GIT_REPO}/$doc_dirname
+#         chmod +x deploy.sh && ./deploy.sh &
+#         push $!
+#         cd -
+#     fi
+# 	while [[ $run -gt $Qp ]];do
+# 		check
+# 		sleep 0.1
+# 	done
+# done
+# wait
 
 echo -e "time-consuming: $SECONDS   seconds"    #显示脚本执行耗时
 
