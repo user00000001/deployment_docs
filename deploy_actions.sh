@@ -32,6 +32,15 @@ function check() {
 	run=${#Qarr[@]}
 }
 
+# prepare shared node_modules
+for doc_dirname in `cat .docs`; do
+    if [ -f "${GIT_REPO}/${doc_dirname}/package.json" ]; then
+        echo "goto ${GIT_REPO}/$doc_dirname" && cd ${GIT_REPO}/$doc_dirname
+        yarn
+        cd -
+    fi
+done
+
 # main
 for doc_dirname in `cat .docs`; do
     if [ -f "${GIT_REPO}/${doc_dirname}/deploy.sh" ]; then
