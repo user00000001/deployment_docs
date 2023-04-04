@@ -5,6 +5,7 @@ set -e
 
 git config --global user.email ${GIT_EMAIL}
 git config --global user.name ${GIT_NAME}
+git config --global init.defaultBranch master
 git clone https://${GIT_ACCESS_TOKEN}@${GIT_LAB}/${GIT_NAME}/${GIT_REPO}.git
 
 # 并发运行的最佳实践
